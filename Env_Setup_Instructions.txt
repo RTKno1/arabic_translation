@@ -1,0 +1,11 @@
+1. create the environment with conda: conda create -n fastai python=3.7
+2. activate the env: conda activate fastai
+3. conda install -c fastai fastai
+  We won't necessarily use fastai but it installs lots of useful packages in one go.
+4.  git clone https://github.com/huggingface/transformers
+    cd transformers
+    pip install .
+5. conda install jupyter notebook
+6. conda install -c conda-forge jupyter_contrib_nbextensions
+7. conda install nb_conda
+8. conda install -c fastai fastprogress
