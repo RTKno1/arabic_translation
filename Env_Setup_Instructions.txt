@@ -9,3 +9,4 @@
 6. conda install -c conda-forge jupyter_contrib_nbextensions
 7. conda install nb_conda
 8. conda install -c fastai fastprogress
+9. conda install -c pytorch torchtext
