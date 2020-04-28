@@ -13,6 +13,7 @@ from functools import partial
 import spacy
 from spacy.vocab import Vocab
 from spacy.language import Language
+from spacy.tokenizer import Tokenizer
 
 from torchtext.data import Field
 
@@ -44,7 +45,7 @@ class Custom_Field(Field):
         self.lower = lower
         # store params to construct tokenizer for serialization
         # in case the tokenizer isn't picklable (e.g. spacy)
-        self.tokenizer_args = (tokenize) # removed tokenizer_language 
+        self.tokenizer_args = (tokenize, tokenizer_language) # removed tokenizer_language 
         self.tokenize = custom_get_tokenizer(tokenize) #*** This is what I changed ****
         self.include_lengths = include_lengths
         self.batch_first = batch_first
@@ -109,11 +110,18 @@ def custom_get_tokenizer(tokenizer):
             #spacy_spm_tokenizer = Tokenizer(spm_vocab)
             
             spm_vocab = Vocab(strings=spm_vocab_list)
-            nlp = Language(spm_vocab)
-            print(nlp)
+            spacy_spm_tokenizer = Tokenizer(spm_vocab)
+            print("used spacy spm tokenizer")
+            return spacy_spm_tokenizer
             
-            spacy_lang = spacy.load(nlp)
-            return partial(_spacy_tokenize, spacy=spacy_lang)
+            #nlp = Language(spm_vocab)
+            #print(nlp)
+            
+            #spacy_lang = spacy.load(nlp)
+            #return partial(_spacy_tokenize, spacy=spacy_lang)
+       
+        
+        
         except ImportError:
             print("Please install SpaCy. "
                   "See the docs at https://spacy.io for more information.")
